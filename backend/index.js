@@ -8,10 +8,10 @@ const { info } = require("./utils/logger");
 const app = express();
 
 // middleware
+app.use(cors());
 app.use(express.json());
 app.use(mw.requestLogger);
 app.use(express.static("dist"));
-app.use(cors());
 
 // Not found route and error handler
 app.use(mw.notFoundRoute);
