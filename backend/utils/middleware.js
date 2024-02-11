@@ -3,7 +3,7 @@ const morgan = require("morgan");
 const notFoundRoute = (req, res) =>
     res
         .status(404)
-        .send('<h1>Unknown endpoint</h1><p>Go to <a hrer="/info">info</a>');
+        .send('<h1>Unknown endpoint</h1><p>Go to <a href="/info">info</a></p>');
 
 const requestLogger = morgan((tokens, req, res) => {
     return [
