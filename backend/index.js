@@ -1,7 +1,7 @@
 const config = require("./utils/config");
-const { info } = require("./utils/logger");
+const logger = require("./utils/logger");
 const app = require("./app");
 
 // Start listening
 const PORT = config.PORT;
-app.listen(PORT, () => info(`Server started. Listening on ${PORT}.`));
+app.listen(PORT, () => logger.info(`Server started. Listening on ${PORT}.`));
