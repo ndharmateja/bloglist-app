@@ -1,22 +1,7 @@
-const process = require("process");
-const express = require("express");
-const cors = require("cors");
-const mw = require("./utils/middleware");
+const config = require("./utils/config");
 const { info } = require("./utils/logger");
-
-// Create express app
-const app = express();
-
-// middleware
-app.use(cors());
-app.use(express.json());
-app.use(mw.requestLogger);
-app.use(express.static("dist"));
-
-// Not found route and error handler
-app.use(mw.notFoundRoute);
-app.use(mw.errorHandler);
+const app = require("./app");
 
 // Start listening
-const PORT = process.env.PORT || 3001;
+const PORT = config.PORT;
 app.listen(PORT, () => info(`Server started. Listening on ${PORT}.`));
