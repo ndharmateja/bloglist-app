@@ -1,24 +1,22 @@
-const mongoose = require("mongoose");
 const express = require("express");
+const app = express();
 const cors = require("cors");
-const mw = require("./utils/middleware");
-const config = require("./utils/config");
+const mongoose = require("mongoose");
+const blogsRouter = require("./routes/blogs");
+require("dotenv").config();
 const logger = require("./utils/logger");
+const mw = require("./utils/middleware");
 
 // Connect to Mongo DB
 mongoose.set("strictQuery", false);
-logger.info("connecting to", config.MONGODB_URI);
+const mongoUrl = process.env.MONGODB_URI;
+logger.info("Connecting to Mongo DB..");
 mongoose
-    .connect(config.MONGODB_URI)
-    .then(() => {
-        logger.info("connected to MongoDB");
-    })
-    .catch((error) => {
-        logger.error("error connecting to MongoDB:", error.message);
-    });
-
-// Create express app
-const app = express();
+    .connect(mongoUrl)
+    .then(() => logger.info("Successfully connected to Mongo DB."))
+    .catch((e) =>
+        logger.error(`Failed to connect to Mongo DB. "${e.message}"`)
+    );
 
 // Middleware
 app.use(cors());
@@ -26,9 +24,11 @@ app.use(express.json());
 app.use(mw.requestLogger);
 app.use(express.static("dist"));
 
-// Not found route and error handler
+// Routes
+app.use("/api/blogs", blogsRouter);
+
+// Not found route and error handler middleware
 app.use(mw.notFoundRoute);
 app.use(mw.errorHandler);
 
-// Export app
 module.exports = app;
