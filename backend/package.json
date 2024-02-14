@@ -4,10 +4,10 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "test": "jest --verbose",
-        "start": "node index.js",
-        "dev": "nodemon index.js",
-        "build:ui": "cd ../frontend && npm run build && cp -r dist ../backend",
+        "start": "NODE_ENV=prod node index.js",
+        "dev": "NODE_ENV=dev nodemon index.js",
+        "test": "NODE_ENV=test jest --verbose --runInBand",
+        "build:ui": "rm -rf dist && cd ../frontend && npm run build && cp -r dist ../backend",
         "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push origin master"
     },
     "author": "",
