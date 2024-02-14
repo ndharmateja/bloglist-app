@@ -1,7 +1,6 @@
-const morgan = require("morgan");
 const logger = require("./logger");
 
-const notFoundRoute = (req, res) =>
+const notFoundRoute = (_req, res) =>
     res
         .status(404)
         .send('<h1>Unknown endpoint</h1><p>Go to <a href="/info">info</a></p>');
