@@ -10,6 +10,7 @@ const mw = require("./utils/middleware");
 const config = require("./utils/config");
 const usersRouter = require("./routes/users");
 const loginRouter = require("./routes/login");
+const path = require("path");
 
 // Connect to Mongo DB
 mongoose.set("strictQuery", false);
@@ -31,6 +32,7 @@ app.use(mw.requestLogger);
 app.use("/api/blogs", blogsRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/login", loginRouter);
+app.use("/api/*", mw.notFoundRoute);
 
 // Frontend
 // Reference: https://stackoverflow.com/a/51227868/9430523
@@ -40,6 +42,8 @@ app.get("*", function (req, res) {
         root: path.join(__dirname, "/dist"),
     });
 });
+
+// Error handler middleware
 app.use(mw.errorHandler);
 
 module.exports = app;
