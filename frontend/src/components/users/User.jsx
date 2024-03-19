@@ -16,14 +16,18 @@ const User = () => {
                 {name} - <em>@{username}</em>
             </h2>
 
-            <h3>added blogs</h3>
-            <ul>
-                {blogs.map(({ id: blogId, title }) => (
-                    <li key={blogId}>
-                        <Link to={`/blogs/${blogId}`}>{title}</Link>
-                    </li>
-                ))}
-            </ul>
+            <h3>Added blogs</h3>
+            {blogs.length === 0 ? (
+                <div>No blogs added yet</div>
+            ) : (
+                <ul>
+                    {blogs.map(({ id: blogId, title }) => (
+                        <li key={blogId}>
+                            <Link to={`/blogs/${blogId}`}>{title}</Link>
+                        </li>
+                    ))}
+                </ul>
+            )}
         </>
     );
 };
