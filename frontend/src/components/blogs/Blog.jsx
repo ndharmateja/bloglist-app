@@ -2,6 +2,7 @@ import { deleteBlog, likeBlog, postComment } from "../../reducers/blogsReducer";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { useField } from "../../hooks";
+import Comment from "./Comment";
 
 const Blog = () => {
     const { reset: resetComment, ...commentField } = useField("text");
@@ -88,8 +89,10 @@ const Blog = () => {
                 <div>No comments</div>
             ) : (
                 <ul>
-                    {comments.map(({ id, content }) => (
-                        <li key={id}>{content}</li>
+                    {comments.map(({ id, content, createdAt }) => (
+                        <li key={id}>
+                            <Comment content={content} createdAt={createdAt} />
+                        </li>
                     ))}
                 </ul>
             )}
