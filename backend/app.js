@@ -33,10 +33,13 @@ app.use("/api/users", usersRouter);
 app.use("/api/login", loginRouter);
 
 // Frontend
-app.use(express.static("dist"));
-
-// Not found route and error handler middleware
-app.use(mw.notFoundRoute);
+// Reference: https://stackoverflow.com/a/51227868/9430523
+app.use("/", express.static(path.join(__dirname, "/dist")));
+app.get("*", function (req, res) {
+    res.sendFile("index.html", {
+        root: path.join(__dirname, "/dist"),
+    });
+});
 app.use(mw.errorHandler);
 
 module.exports = app;
